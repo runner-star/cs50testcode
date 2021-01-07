@@ -30,7 +30,7 @@ int main(int argc, string argv[])
 
     encipher(plaintext, ciphertext, key); //aditional function to encipher text
 
-    printf("ciphertext:%s \n", ciphertext);
+    printf("ciphertext: %s\n", ciphertext);
 
     return 0;
 }
@@ -40,6 +40,7 @@ void encipher(string plaintext, string ciphertext, int key)
     int i = 0;
     int len = strlen(plaintext);
     for (i = 0, len = strlen(plaintext); i < len; i++)
+    {
 
     char c = plaintext[i];
 
@@ -52,7 +53,7 @@ void encipher(string plaintext, string ciphertext, int key)
 
             pi = 'A'; //simple way to preserve case
 
-        char ci = (c - pi + key) % 26 + pi); //actual formula using coded variables
+        char ci = ((c - pi + key) % 26 + pi); //actual formula using coded variables
 
         ciphertext[i] = ci; //iterate over each character using above formula
     }
@@ -63,6 +64,8 @@ void encipher(string plaintext, string ciphertext, int key)
     }
 
     ciphertext[i] = '\0'; //must be able to terminate array
+
+    }
 
 }
 
