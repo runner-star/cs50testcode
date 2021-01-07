@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <cs50.h>
+#include <string.h>
+#include <ctype.h>
+
+//notes to self
+//only rotate alphabetical characters
+//maintain case of characters
+
+bool is_valid_key(string s); //prototype of function that checks if key is valid
+
+void encipher(string plaintext, string ciphertext, int key); //prototype of function that enciphers plaintext
+
+int main(int argc, string argv[])
+{
+    if (argc != 2 || !is_valid_key(argv[1]))
+    {
+        printf("Usage: ./caesar key");
+        return 1;
+    }
+
+    int key = atoi(argv[1]); //convert ascii to integer
+
+    string plaintext = get_string("plaintext: ");
+
+    int n = strlen(plaintext);
+
+    char ciphertext[n + 1];
+
+    encipher(plaintext, ciphertext, key); //aditional function to encipher text
+
+    printf("ciphertext:%s \n", ciphertext);
+
+    return 0;
+}
+
+void encipher(string plaintext, string ciphertext, int key)
+{
+    int i = 0;
+    int len = strlen(plaintext);
+    for (i = 0, len = strlen(plaintext); i < len; i++)
+
+    char c = plaintext[i];
+
+    if (isalpha(c))
+    {
+        //encrypting function ci = (pi + key) % 26
+
+        char pi = 'a';
+            if (isupper(c))
+
+            pi = 'A'; //simple way to preserve case
+
+        char ci = (c - pi + key) % 26 + pi); //actual formula using coded variables
+
+        ciphertext[i] = ci; //iterate over each character using above formula
+    }
+
+    else
+    {
+        ciphertext[i] = c; //if character is not alphabetical, simply print as is
+    }
+
+    ciphertext[i] = '\0'; //must be able to terminate array
+
+}
+
+bool is_valid_key(string s)
+{
+    for (int i = 0, len = strlen(s); i < len; i++)
+        if (!isdigit(s[i]))
+            return false;
+    return true;
+}
