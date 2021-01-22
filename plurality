@@ -85,7 +85,7 @@ bool vote(string name)
 // Print the winner (or winners) of the election
 void print_winner(void)
 {
-    int votecount = 0;
+    int votecount = 0; // Counter variable for candidate with the highest votes... at least that's what its supposed to be
 
     for(cand = 0; cand < candidate_count; cand++)
     {
