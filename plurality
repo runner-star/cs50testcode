@@ -19,6 +19,9 @@ candidate candidates[MAX];
 // Number of candidates
 int candidate_count;
 
+// "Candidate of interest" variable prototype
+int cand;
+
 // Function prototypes
 bool vote(string name);
 void print_winner(void);
@@ -66,16 +69,16 @@ int main(int argc, string argv[])
 // Update vote totals given a new vote
 bool vote(string name)
 {
-    for(int cand = 0; cand < candidate_count; cand++)
+    for(cand = 0; cand < candidate_count; cand++)
     {
-        if(strcomp(name, candidates[cand].name) == 0)
+        if(strcmp(name, candidates[cand].name) == 0)
         {
             candidates[cand].votes++;
-            
+
             return true;
         }
     }
-    
+
     return false;
 }
 
@@ -83,15 +86,15 @@ bool vote(string name)
 void print_winner(void)
 {
     int votecount = 0;
-    
+
     for(cand = 0; cand < candidate_count; cand++)
     {
         if(candidates[cand].votes >= votecount)
         {
-            votecount = candidates[cand].votes
+            votecount = candidates[cand].votes;
         }
     }
-    
+
     for(cand = 0; cand < candidate_count; cand++)
     {
         if(candidates[cand].votes == votecount)
@@ -99,94 +102,27 @@ void print_winner(void)
             printf("%s \n", candidates[cand].name);
         }
     }
-    
+
     return;
 }
 
-plurality.c:71:13: error: declaration shadows a local variable [-Werror,-Wshadow]
-    for(int cand; cand < candidate_count; cand++)
-            ^
-plurality.c:69:9: note: previous declaration is here
-    int cand = 0;
-        ^
-plurality.c:71:19: error: variable 'cand' is uninitialized when used here [-Werror,-Wuninitialized]
-    for(int cand; cand < candidate_count; cand++)
-                  ^~~~
-plurality.c:71:17: note: initialize the variable 'cand' to silence this warning
-    for(int cand; cand < candidate_count; cand++)
-                ^
-                 = 0
-plurality.c:89:9: error: use of undeclared identifier 'cand'
-    for(cand = 0; cand < candidate_count; cand++)
-        ^
-plurality.c:89:19: error: use of undeclared identifier 'cand'; did you mean 'scanf'?
-    for(cand = 0; cand < candidate_count; cand++)
-                  ^~~~
-                  scanf
-/usr/include/stdio.h:410:24: note: 'scanf' declared here
-extern int __REDIRECT (scanf, (const char *__restrict __format, ...),
-                       ^
-plurality.c:89:24: error: ordered comparison between pointer and integer ('int (*)(const char *restrict, ...)' and 'int') [-Werror]
-    for(cand = 0; cand < candidate_count; cand++)
-                  ~~~~ ^ ~~~~~~~~~~~~~~~
-plurality.c:89:43: error: use of undeclared identifier 'cand'
-    for(cand = 0; cand < candidate_count; cand++)
-                                          ^
-plurality.c:91:23: error: use of undeclared identifier 'cand'; did you mean 'scanf'?
-        if(candidates[cand].votes >= votecount)
-                      ^~~~
-                      scanf
-/usr/include/stdio.h:410:24: note: 'scanf' declared here
-extern int __REDIRECT (scanf, (const char *__restrict __format, ...),
-                       ^
-plurality.c:91:22: error: array subscript is not an integer
-        if(candidates[cand].votes >= votecount)
-                     ^~~~~
-plurality.c:93:36: error: use of undeclared identifier 'cand'; did you mean 'scanf'?
-            votecount = candidates[cand].votes
-                                   ^~~~
-                                   scanf
-/usr/include/stdio.h:410:24: note: 'scanf' declared here
-extern int __REDIRECT (scanf, (const char *__restrict __format, ...),
-                       ^
-plurality.c:93:35: error: array subscript is not an integer
-            votecount = candidates[cand].votes
-                                  ^~~~~
-plurality.c:97:9: error: use of undeclared identifier 'cand'
-    for(cand = 0; cand < candidate_count; cand++)
-        ^
-plurality.c:97:19: error: use of undeclared identifier 'cand'; did you mean 'scanf'?
-    for(cand = 0; cand < candidate_count; cand++)
-                  ^~~~
-                  scanf
-/usr/include/stdio.h:410:24: note: 'scanf' declared here
-extern int __REDIRECT (scanf, (const char *__restrict __format, ...),
-                       ^
-plurality.c:97:24: error: ordered comparison between pointer and integer ('int (*)(const char *restrict, ...)' and 'int') [-Werror]
-    for(cand = 0; cand < candidate_count; cand++)
-                  ~~~~ ^ ~~~~~~~~~~~~~~~
-plurality.c:97:43: error: use of undeclared identifier 'cand'
-    for(cand = 0; cand < candidate_count; cand++)
-                                          ^
-plurality.c:99:23: error: use of undeclared identifier 'cand'; did you mean 'scanf'?
-        if(candidates[cand].votes == votecount)
-                      ^~~~
-                      scanf
-/usr/include/stdio.h:410:24: note: 'scanf' declared here
-extern int __REDIRECT (scanf, (const char *__restrict __format, ...),
-                       ^
-plurality.c:99:22: error: array subscript is not an integer
-        if(candidates[cand].votes == votecount)
-                     ^~~~~
-plurality.c:101:40: error: use of undeclared identifier 'cand'; did you mean 'scanf'?
-            printf("%s \n", candidates[cand].name);
-                                       ^~~~
-                                       scanf
-/usr/include/stdio.h:410:24: note: 'scanf' declared here
-extern int __REDIRECT (scanf, (const char *__restrict __format, ...),
-                       ^
-plurality.c:101:39: error: array subscript is not an integer
-            printf("%s \n", candidates[cand].name);
-                                      ^~~~~
-18 errors generated.
-make: *** [<builtin>: plurality] Error 1
+Results for cs50/problems/2021/x/plurality generated by check50 v3.1.2
+:) plurality.c exists
+:) plurality compiles
+:) vote returns true when given name of first candidate
+:) vote returns true when given name of middle candidate
+:) vote returns true when given name of last candidate
+:) vote returns false when given name of invalid candidate
+:) vote produces correct counts when all votes are zero
+:) vote produces correct counts after some have already voted
+:) vote leaves vote counts unchanged when voting for invalid candidate
+:( print_winner identifies Alice as winner of election
+    print_winner function did not print winner of election
+:( print_winner identifies Bob as winner of election
+    print_winner function did not print winner of election
+:( print_winner identifies Charlie as winner of election
+    print_winner function did not print winner of election
+:( print_winner prints multiple winners in case of tie
+    print_winner function did not print both winners of election
+:( print_winner prints all names when all candidates are tied
+    print_winner function did not print all three winners of election
